@@ -13,5 +13,5 @@ docker build -t valterm/kretanyad .
 ## Run
 Run with the following command:
 ```bash
-docker run -d name:tag
+docker run -d valterm/kretanyad
 ```
