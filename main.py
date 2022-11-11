@@ -27,19 +27,15 @@ def get_username(user: User) -> str:
 def start(update: Update, context: CallbackContext):
     user = get_username(update.effective_user)
     insult = get_random_insult()
-
     context.bot.send_message(chat_id=update.effective_chat.id, text=f"{user}, vigyázz, mert csúnyán beszélek!")
 
 def helper(update: Update, context: CallbackContext):    
     user = get_username(update.effective_user)
     insult = get_random_insult()
-
     context.bot.send_message(chat_id=update.effective_chat.id, text=f"{user}, ha nem tudod kitalálni mire jó ez a bot, nem tudok rajtad segíteni.")
 
 def insult(update: Update, context: CallbackContext):
     user = get_username(update.effective_user)
-    insult = get_random_insult()
-
     context.bot.send_message(chat_id=update.effective_chat.id, text=f"{user}, te {insult}.")
 
 def main():
