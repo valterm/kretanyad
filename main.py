@@ -1,9 +1,9 @@
-from telegram import Update
+from telegram import Update,User
 from telegram.ext import Updater,CallbackContext,CommandHandler
-import argparse
 import json
 from random import randint
 import logging
+import os
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -16,30 +16,35 @@ def get_random_insult() -> str:
 
     return(json_data['DirtyWords'][n].lower())
 
+def get_username(user: User) -> str:
+    if user.username == 'None':
+        username = f"{user.last_name} {user.first_name}"
+    else:
+        username = f"@{user.username}"
+    return(username)
+
 
 def start(update: Update, context: CallbackContext):
-    user = update.effective_user.username
+    user = get_username(update.effective_user)
+    insult = get_random_insult()
 
-    context.bot.send_message(chat_id=update.effective_chat.id, text=f"@{user}, vigyázz, mert csúnyán beszélek!")
+    context.bot.send_message(chat_id=update.effective_chat.id, text=f"{user}, vigyázz, mert csúnyán beszélek!")
 
-def helper(update: Update, context: CallbackContext):
-    user = update.effective_user.username
+def helper(update: Update, context: CallbackContext):    
+    user = get_username(update.effective_user)
+    insult = get_random_insult()
 
-    context.bot.send_message(chat_id=update.effective_chat.id, text=f"@{user}, ha nem tudod kitalálni mire jó ez a bot, nem tudok rajtad segíteni.")
+    context.bot.send_message(chat_id=update.effective_chat.id, text=f"{user}, ha nem tudod kitalálni mire jó ez a bot, nem tudok rajtad segíteni.")
 
 def insult(update: Update, context: CallbackContext):
+    user = get_username(update.effective_user)
     insult = get_random_insult()
-    user = update.effective_user.username
 
-    context.bot.send_message(chat_id=update.effective_chat.id, text=f"@{user}, te {insult}.")
+    context.bot.send_message(chat_id=update.effective_chat.id, text=f"{user}, te {insult}.")
 
 def main():
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('token')
-    args = parser.parse_args()
-
-    token = args.token 
+    token = os.environ.get('TELEGRAM_BOT_TOKEN')    
 
     updater = Updater(token=token)
     
