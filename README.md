@@ -7,9 +7,8 @@ Simple telegram bot that generates insults using the Kréta leaks.
 3. Edit `Dockerfile` to add yout token
 4. Run:
 ```bash
-docker build -t name:tag .
+docker build -t valterm/kretanyad .
 ```
-replacing name:tag with your custom tag for easier access.
 
 ## Run
 Run with the following command:
