@@ -6,7 +6,9 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install dependencies:
 COPY requirements.txt .
-RUN pip install -r requirements.txt
 RUN python3 -m venv /opt/venv
 RUN pip install -r ./requirements.txt 
+
+# Run
+COPY main.py .
 CMD ["python", "./main.py"] 
