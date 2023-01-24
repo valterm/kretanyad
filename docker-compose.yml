@@ -2,7 +2,6 @@ version: "3.9"
 services:
   kretanyad:
     container_name: "kretanyad"
-    image: "valterm/kretanyad"
-    build: .
+    image: "circoplomber/kretanyad:v1.2.2"
     environment:
     - "TELEGRAM_BOT_TOKEN="
